@@ -2,7 +2,7 @@ import coffeeImg from './assets/coffeeImg.jpg'
 
 function About (){
     return (
-        <div className='flex flex-col md:flex-row gap-4 py-10'>
+        <div className='flex flex-col md:flex-row gap-4 p-10 '>
             <div className='p-10 flex-1 justify-items-center'>
                 <img className='w-96' src={coffeeImg} alt="Coffee cups"/>
             </div>

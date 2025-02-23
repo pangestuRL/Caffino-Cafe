@@ -1,46 +1,68 @@
 import logoCafino from './assets/logo-caffino.png';
+import { useState } from 'react';
+import { Link as ScrollLink } from "react-scroll";
+import { Menu, X } from "lucide-react";
 
-function Navbar (){
+const Navbar = ({ links }) => {
+    const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div>
-            <nav className="bg-[#C9BAA6] transition-colors bg-[#E5CFB5]">
-                <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-                    <div className="relative flex h-16 items-center justify-between">
-                    <div className="flex flex-1 items-center sm:items-stretch sm:justify-start">
-                        <div className="flex shrink-0 items-center">
-                        {/* <h2 className="w-auto text-white font-bold text-3xl italic">
-                            Kopi<span className="text-amber-400">ayah.</span>
-                        </h2> */}
-                            <img src={logoCafino} alt="Logo-Caffino" />
-                        </div>
-                        <div className="flex-grow" />
-                        <div className="hidden sm:ml-6 sm:block">
-                            <div className="space-x-6 justify-end">
-                                <a href="#home"
-                                className="text-[17px] rounded-md px-3 py-2 text-sm font-medium hover:bg-[#3E2723] hover:text-white items-center">
-                                    Home
-                                </a>
-                                <a href="#About"
-                                className="text-[17px] rounded-md px-3 py-2 text-sm font-medium hover:bg-[#3E2723] hover:text-white">
-                                    About
-                                </a>
-                                <a href="#menu"
-                                className="text-[17px] rounded-md px-3 py-2 text-sm font-medium hover:bg-[#3E2723] hover:text-white">
-                                    Menu
-                                </a>
-                                <a href="#contact"
-                                className="text-[17px] rounded-md px-3 py-2 text-sm font-medium hover:bg-[#3E2723] hover:text-white">
-                                    Contact
-                                </a>
-                            </div>
-                        </div>
+        <nav className="bg-[#E5CFB5] transition-colors">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className="relative flex h-16 items-center justify-between">
+                    
+                    {/* Logo */}
+                    <div className="flex items-center">
+                        <img src={logoCafino} alt="Logo Caffino" />
                     </div>
+
+                    {/* Desktop Menu */}
+                    <div className="hidden md:flex space-x-6 text-black ml-auto">
+                        {links.map((link) => (
+                            <ScrollLink 
+                                key={link.id} 
+                                to={link.id} 
+                                smooth={true} 
+                                duration={500} 
+                                className="cursor-pointer hover:text-gray-700 hover:font-bold"
+                            >
+                                {link.name}
+                            </ScrollLink>
+                        ))}
                     </div>
+
+                    {/* Mobile Menu Button */}
+                    <button 
+                        className="md:hidden text-black ml-auto" 
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        {isOpen ? <X size={24} /> : <Menu size={24} />}
+                    </button>
                 </div>
-            </nav>
-        </div>
-    )
-}
+            </div>
+
+            {/* Mobile Menu */}
+            {isOpen && (
+                <div className="md:hidden bg-[#E6D2B5] text-black py-4">
+                    <ul className="space-y-4 text-center">
+                        {links.map((link) => (
+                            <li key={link.id}>
+                                <ScrollLink
+                                    to={link.id}
+                                    smooth={true}
+                                    duration={500}
+                                    className="cursor-pointer block py-2 hover:text-gray-700 hover:font-bold"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    {link.name}
+                                </ScrollLink>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+        </nav>
+    );
+};
 
 export default Navbar;

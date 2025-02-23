@@ -6,14 +6,22 @@ import Contact from "./components/Follow Us/Contact"
 import Footer from "./components/Footer/Footer"
 
 function App() {
+  const navLinks = [
+    { id: "home", name: "Home"},
+    { id: "about", name: "About"},
+    { id: "menu", name: "Menu"},
+    { id: "contact", name: "Contact"}
+  ];
   
   return (
     <div>
-      <Navbar/>
-      <Hero/>
-      <About/>
-      <Menu/>
-      <Contact/>
+      <div>
+        <Navbar links={navLinks}/>
+        <div id="home"><Hero/></div>
+        <div id="about"><About/></div>
+        <div id="menu"><Menu/></div>
+        <div id="contact"><Contact/></div>
+      </div>
       <Footer/>
     </div>
   )
